@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,6 +22,7 @@ namespace TicTacToe
             InitializeComponent();
         }
 
+        // Кнопки
         private void A1button_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
@@ -35,7 +37,23 @@ namespace TicTacToe
             check = !check;
         }
 
-        //вынести showbox в отдельную функцию
+        private void A1button_MouseEnter(object sender, EventArgs e)
+        {
+            Button enteredButton = (Button)sender;
+
+            if (check == true)
+                enteredButton.Text = "X";
+            else
+                enteredButton.Text = "O";
+        }
+
+        private void A1button_MouseLeave(object sender, EventArgs e)
+        {
+            Button leaveButton = (Button)sender;
+            if (leaveButton.Enabled == true)
+                leaveButton.Text = "";
+        }
+
         void CheckWin()
         {
             string winner = check == true ? "X" : "O";
@@ -43,56 +61,50 @@ namespace TicTacToe
             //По горизонтали
             if (A1button.Text != "" && A1button.Text == A2button.Text && A1button.Text == A3button.Text)
             {
-                MessageBox.Show("Выиграл: " + winner);
-                IncreaseScoreCount();
+                WinnerShowBox(winner);
                 return;
             }
             if (B1button.Text != "" && B1button.Text == B2button.Text && B1button.Text == B3button.Text)
             {
-                MessageBox.Show("Выиграл: " + winner);
-                IncreaseScoreCount();
+                WinnerShowBox(winner);
                 return;
             }
             if (C1button.Text != "" && C1button.Text == C2button.Text && C1button.Text == C3button.Text)
             {
-                MessageBox.Show("Выиграл: " + winner);
-                IncreaseScoreCount();
+                WinnerShowBox(winner);
                 return;
             }
 
             //По вертикали
             if (A1button.Text != "" && A1button.Text == B1button.Text && A1button.Text == C1button.Text)
             {
-                MessageBox.Show("Выиграл: " + winner);
-                IncreaseScoreCount();
+                WinnerShowBox(winner);
                 return;
             }
             if (A2button.Text != "" && A2button.Text == B2button.Text && A2button.Text == C2button.Text)
             {
-                MessageBox.Show("Выиграл: " + winner);
-                IncreaseScoreCount();
+                WinnerShowBox(winner);
                 return;
             }
             if (A3button.Text != "" && A3button.Text == B3button.Text && A3button.Text == C3button.Text)
             {
-                MessageBox.Show("Выиграл: " + winner);
-                IncreaseScoreCount();
+                WinnerShowBox(winner);
                 return;
             }
 
             //По диагоналям
             if (A1button.Text != "" && A1button.Text == B2button.Text && A1button.Text == C3button.Text)
             {
-                MessageBox.Show("Выиграл: " + winner);
-                IncreaseScoreCount();
+                WinnerShowBox(winner);
                 return;
             }
             if (A3button.Text != "" && A3button.Text == B2button.Text && A3button.Text == C1button.Text)
             {
-                MessageBox.Show("Выиграл: " + winner);
-                IncreaseScoreCount();
+                WinnerShowBox(winner);
                 return;
             }
+
+            // Ничья
             if (A1button.Enabled == false && A2button.Enabled == false && A3button.Enabled == false && B1button.Enabled == false && B2button.Enabled == false && B3button.Enabled == false && C1button.Enabled == false && C2button.Enabled == false && C3button.Enabled == false)
             {
                 MessageBox.Show("Ничья!");
@@ -102,6 +114,12 @@ namespace TicTacToe
             
         }
 
+        private void WinnerShowBox(string win)
+        {
+            MessageBox.Show("Выиграл: " + win);
+            IncreaseScoreCount();
+        }
+        // Победитель или ничья
         private void IncreaseScoreCount()
         {
             if (check == true)
@@ -115,6 +133,7 @@ namespace TicTacToe
                 drawCountLabel.Text = (Convert.ToInt32(drawCountLabel.Text) + 1).ToString();
         }
 
+        // Меню приложения - рестарт и сброс статистики
         private void restartGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (var control in Controls)
@@ -134,26 +153,9 @@ namespace TicTacToe
             xCountWinnerLabel.Text = "0";
             oCountWinnerLabel.Text = "0";
             drawCountLabel.Text = "0";
-
-
         }
 
-        private void A1button_MouseEnter(object sender, EventArgs e)
-        {
-            Button enteredButton = (Button)sender;
-
-            if (check == true)
-                enteredButton.Text = "X";
-            else
-                enteredButton.Text = "O";
-        }
-
-        private void A1button_MouseLeave(object sender, EventArgs e)
-        {
-            Button leaveButton = (Button)sender;
-            if (leaveButton.Enabled  == true)
-                leaveButton.Text = "";
-        }
+        
        
     }
 }
