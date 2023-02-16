@@ -14,6 +14,7 @@ namespace TicTacToe
     public partial class StartForm : Form
     {
         bool check = true; // true == x,false == o
+        
 
         public StartForm()
         {
@@ -92,6 +93,13 @@ namespace TicTacToe
                 IncreaseScoreCount();
                 return;
             }
+            if (A1button.Enabled == false && A2button.Enabled == false && A3button.Enabled == false && B1button.Enabled == false && B2button.Enabled == false && B3button.Enabled == false && C1button.Enabled == false && C2button.Enabled == false && C3button.Enabled == false)
+            {
+                MessageBox.Show("Ничья!");
+                IncreaseDrawScoreCount();
+                return;
+            }
+            
         }
 
         private void IncreaseScoreCount()
@@ -100,6 +108,11 @@ namespace TicTacToe
                 xCountWinnerLabel.Text = (Convert.ToInt32(xCountWinnerLabel.Text) + 1).ToString();
             else
                 oCountWinnerLabel.Text = (Convert.ToInt32(oCountWinnerLabel.Text) + 1).ToString();
+        }
+
+        private void IncreaseDrawScoreCount()
+        {
+                drawCountLabel.Text = (Convert.ToInt32(drawCountLabel.Text) + 1).ToString();
         }
 
         private void restartGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -141,6 +154,6 @@ namespace TicTacToe
             if (leaveButton.Enabled  == true)
                 leaveButton.Text = "";
         }
-        //Проверка на ничью. Нет ни одной активной кнопки - ничья
+       
     }
 }
